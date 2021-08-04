@@ -39,5 +39,8 @@ def get_annual_income(num_shares, dividend_rate):
 
 
 def get_last_qual_purchase_date(ex_date):
+    date_object = datetime.datetime.strptime(ex_date, "%Y-%m-%d")
     hold_time = datetime.timedelta(days = 61)
-    return ex_date - hold_time
+    last_buy_date = date_object - hold_time
+    last_buy_date = last_buy_date.strftime("%m/%d/%Y")
+    return last_buy_date

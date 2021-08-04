@@ -65,7 +65,7 @@ def pull_stock_data(sht):
                     "yield_on_cost": round(calc.get_yield_on_cost(get_buy_price(sht, ticker), data.get_dividend_rate()), 2),
                     "annual_income": round(calc.get_annual_income(get_num_shares(sht, ticker), data.get_dividend_rate()), 2),
                     "ex_date": data.get_exdividend_date(),
-                    "last_qual_purchase_date": "",
+                    "last_qual_purchase_date": calc.get_last_qual_purchase_date(data.get_exdividend_date()),
                 }
                 # Append data for stock to dataframe
                 df = df.append(new_row, ignore_index=True)
