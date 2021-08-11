@@ -60,11 +60,11 @@ def pull_stock_data(sht):
                     "market_value": market_value,
                     "gain_loss": gain_loss,
                     "growth": round(growth, 2),
-                    "annual_dividend": float(data.get_dividend_rate()),
-                    "dividend_yield": round(data.get_dividend_yield(), 2),
-                    "yield_on_cost": round(calc.get_yield_on_cost(get_buy_price(sht, ticker), data.get_dividend_rate()), 2),
-                    "annual_income": round(calc.get_annual_income(get_num_shares(sht, ticker), data.get_dividend_rate()), 2),
-                    "ex_date": data.get_exdividend_date(),
+                    "annual_dividend": float(data.get_dividend_rate()) if data.get_dividend_rate() is not None else 0,
+                    "dividend_yield": round(data.get_dividend_yield() if data.get_dividend_yield() is not None else 0, 2),
+                    "yield_on_cost": round(calc.get_yield_on_cost(get_buy_price(sht, ticker), data.get_dividend_rate() if data.get_dividend_rate() is not None else 0), 2),
+                    "annual_income": round(calc.get_annual_income(get_num_shares(sht, ticker), data.get_dividend_rate() if data.get_dividend_rate() is not None else 0), 2),
+                    "ex_date": data.get_exdividend_date() if data.get_exdividend_date() is not '-' else 'No data available',
                     "last_qual_purchase_date": calc.get_last_qual_purchase_date(data.get_exdividend_date()),
                 }
                 # Append data for stock to dataframe

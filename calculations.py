@@ -1,4 +1,5 @@
 import datetime
+from dateutil.relativedelta import *
 
 
 def get_cost_basis(num_shares, buy_price):
@@ -39,8 +40,11 @@ def get_annual_income(num_shares, dividend_rate):
 
 
 def get_last_qual_purchase_date(ex_date):
-    date_object = datetime.datetime.strptime(ex_date, "%Y-%m-%d")
-    hold_time = datetime.timedelta(days = 61)
-    last_buy_date = date_object - hold_time
-    last_buy_date = last_buy_date.strftime("%m/%d/%Y")
-    return last_buy_date
+    try:
+        date_object = datetime.datetime.strptime(ex_date, "%Y-%m-%d")
+        hold_time = relativedelta(months = +3)
+        last_buy_date = date_object + hold_time
+        last_buy_date = last_buy_date.strftime("%m/%d/%Y")
+        return last_buy_date
+    except ValueError as e:
+        return 'No data available'
